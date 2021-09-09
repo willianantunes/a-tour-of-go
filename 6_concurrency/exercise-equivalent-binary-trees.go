@@ -66,17 +66,17 @@ func Same(t1, t2 *tree.Tree) bool {
 	go Walk(t1, t1Channel)
 	go Walk(t2, t2Channel)
 
-	for i := 0; i < 10; i++ {
-		valueFromT1Channel, isItClosedT1 := <-t1Channel
-		valueFromT2Channel, isItClosedT2 := <-t2Channel
-		if isItClosedT1 == false || isItClosedT2 == false {
-			panic("Something is wrong!")
-		}
-		if valueFromT1Channel != valueFromT2Channel {
+	for valueFromT1Channel := range t1Channel {
+		valueFromT2Channel, doesItHasMore := <-t2Channel
+		if doesItHasMore {
+			if valueFromT1Channel != valueFromT2Channel {
+				return false
+			}
+		} else {
+			// Both channels are supposed to have the same amount of values
 			return false
 		}
 	}
-
 	return true
 }
 
