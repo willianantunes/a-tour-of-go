@@ -43,12 +43,20 @@ The documentation for Tree can be found here[1].
 */
 
 // Walk walks the tree t sending all values from the tree to the channel ch.
-func Walk(t *tree.Tree, channel chan int) {
-	if t != nil {
-		Walk(t.Left, channel)
-		channel <- t.Value
-		Walk(t.Right, channel)
+func Walk(myTree *tree.Tree, channel chan int) {
+	// So it can be closed automatically when this function ends its processing
+	// Infrastructure thing
+	defer close(channel)
+	// Business thing
+	var walkAnonymousFunction func(t *tree.Tree) // This is required because I need to call it inside the function
+	walkAnonymousFunction = func(t *tree.Tree) {
+		if t != nil {
+			walkAnonymousFunction(t.Left)
+			channel <- t.Value
+			walkAnonymousFunction(t.Right)
+		}
 	}
+	walkAnonymousFunction(myTree)
 }
 
 // Same determines whether the trees t1 and t2 contain the same values.
@@ -59,8 +67,11 @@ func Same(t1, t2 *tree.Tree) bool {
 	go Walk(t2, t2Channel)
 
 	for i := 0; i < 10; i++ {
-		valueFromT1Channel := <-t1Channel
-		valueFromT2Channel := <-t2Channel
+		valueFromT1Channel, isItClosedT1 := <-t1Channel
+		valueFromT2Channel, isItClosedT2 := <-t2Channel
+		if isItClosedT1 == false || isItClosedT2 == false {
+			panic("Something is wrong!")
+		}
 		if valueFromT1Channel != valueFromT2Channel {
 			return false
 		}
