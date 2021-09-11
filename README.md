@@ -18,4 +18,9 @@ Then I could start the tour!
 
 ## Interesting links
 
-- https://gobyexample.com/
+- [Go by Example](https://gobyexample.com/)
+- [Go: a simple programming environment](https://talks.golang.org/2012/simple.slide)
+- [Go Concurrency Patterns](https://talks.golang.org/2012/concurrency.slide)
+- [Advanced Go Concurrency Patterns](https://talks.golang.org/2013/advconc.slide)
+- [Codewalks](https://golang.org/doc/codewalk/)
+
