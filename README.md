@@ -15,3 +15,7 @@ go mod init github.com/willianantunes/a-tour-of-go
 ```
 
 Then I could start the tour!
+
+## Interesting links
+
+- https://gobyexample.com/
