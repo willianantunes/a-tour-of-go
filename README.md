@@ -23,5 +23,5 @@ Then I could start the tour!
 - [Go Concurrency Patterns](https://talks.golang.org/2012/concurrency.slide)
 - [Advanced Go Concurrency Patterns](https://talks.golang.org/2013/advconc.slide)
 - [Codewalks](https://golang.org/doc/codewalk/)
-- [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+- [Standard Go Project Layout](https://github.com/golang-standards/project-layout) vs [This is not a standard Go project layout](https://github.com/golang-standards/project-layout/issues/117)
 
